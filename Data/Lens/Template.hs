@@ -42,12 +42,17 @@ import Data.Lens.Common
 --
 -- It is used with Template Haskell syntax like:
 --
--- > $( makeLenses ''TypeName )
+-- > $( makeLenses [''TypeName] )
 --
 -- And will generate accessors when TypeName was declared
 -- using @data@ or @newtype@.
 makeLenses :: [Name] -> Q [Dec]
 makeLenses = return . concat <=< mapM makeLens
+
+-- | 
+-- > makeLens a = makeLenses [a]
+--
+-- > $( makeLens ''TypeName )
 
 makeLens :: Name -> Q [Dec]
 makeLens n = nameMakeLens n stripUnderscore
