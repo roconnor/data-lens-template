@@ -97,7 +97,7 @@ nameMakeLens t namer = do
     nodefmsg = "Warning: No accessors generated from the name " ++ show t
           ++ "\n If you are using makeLenses rather than"
           ++ "\n nameMakeLens, remember accessors are"
-          ++ "\n only generated for fields ending with an underscore"
+          ++ "\n only generated for fields starting with an underscore"
 
     makeAccs :: [TyVarBndr] -> [VarStrictType] -> Q [Dec]
     makeAccs params vars =
