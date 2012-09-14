@@ -103,9 +103,9 @@ decMakeLens t dec namer = do
         liftM (concat . catMaybes) $ mapM (\ (name,_,ftype) -> makeAccFromName name params ftype) vars
 
     transformName :: Name -> Maybe Name
-    transformName (Name occ f) = do
+    transformName (Name occ _) = do
         n <- namer (occString occ)
-        return $ Name (mkOccName n) f
+        return $ Name (mkOccName n) NameS
 
     makeAccFromName :: Name -> [TyVarBndr] -> Type -> Q (Maybe [Dec])
     makeAccFromName name params ftype =
@@ -134,6 +134,7 @@ decMakeLens t dec namer = do
 
 #endif
 
+errmsg :: Show a => a -> [Char]
 errmsg t = "Cannot derive accessors for name " ++ show t ++ " because"
          ++ "\n it is not a type declared with 'data' or 'newtype'"
          ++ "\n Did you remember to double-tick the type as in"
