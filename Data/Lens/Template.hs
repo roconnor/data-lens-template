@@ -103,9 +103,9 @@ decMakeLens t dec namer = do
         liftM (concat . catMaybes) $ mapM (\ (name,_,ftype) -> makeAccFromName name params ftype) vars
 
     transformName :: Name -> Maybe Name
-    transformName (Name occ _) = do
+    transformName (Name occ f) = do
         n <- namer (occString occ)
-        return $ Name (mkOccName n) NameS
+        return $ Name (mkOccName n) f
 
     makeAccFromName :: Name -> [TyVarBndr] -> Type -> Q (Maybe [Dec])
     makeAccFromName name params ftype =
