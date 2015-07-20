@@ -1,13 +1,13 @@
-{ haskellPackages ? (import <nixpkgs> {}).haskellPackages }:
-let
-  inherit (haskellPackages) cabal cabalInstall
-    dataLens;
+{ pkgs ? import <nixpkgs> {}
+, hp ? pkgs.haskellPackages
+, data-lens ? hp.data-lens
+}:
 
-in cabal.mkDerivation (self: {
+hp.callPackage ({mkDerivation, data-lens}:
+ mkDerivation {
   pname = "data-lens-template";
-  version = "2.1.8";
-  src = ./.;
-  buildDepends = [ dataLens ];
-  buildTools = [ cabalInstall ];
-  enableSplitObjs = false;
-})
+  version = "2.1.9";
+  src = pkgs.lib.sourceFilesBySuffices ./. [".hs" ".cabal" "LICENSE"];
+  buildDepends = [ data-lens ];
+  license = pkgs.lib.licenses.bsd3;
+}) { inherit data-lens; }
