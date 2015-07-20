@@ -22,7 +22,7 @@ library
   build-depends:
     data-lens        >= 2.0 && < 2.11,
     base             >= 1.0 && < 5,
-    template-haskell >= 2.4 && < 2.10
+    template-haskell >= 2.4 && < 2.11
 
   exposed-modules:
     Data.Lens.Template
